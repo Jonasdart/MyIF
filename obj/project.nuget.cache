@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "YW47jONdXnpFZEJCI2eefH2xxgt9VCpr/GqQsf/2koPirm/6Zcv7ZVs521+FBHWOPs1dVJaiO7O1DILaNiOjxw==",
+  "success": true,
+  "projectFilePath": "/home/pessoal/Documentos/Faculdade/MyIF/MyIF.csproj",
+  "expectedPackageFiles": [
+    "/home/pessoal/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/home/pessoal/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/pessoal/.nuget/packages/swashbuckle.aspnetcore/6.2.3/swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "/home/pessoal/.nuget/packages/swashbuckle.aspnetcore.swagger/6.2.3/swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "/home/pessoal/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.2.3/swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "/home/pessoal/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.2.3/swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
