@@ -1,5 +1,6 @@
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyIF.DataModels;
 using MyIF.Dtos.Courses;
 using MyIF.Models;
@@ -33,13 +34,13 @@ public class CourseController : ControllerBase
     [HttpGet]
     public List<CourseResponse> GetCourses([FromServices] MyIFContext context)
     {
-        return context.Courses.ProjectToType<CourseResponse>().ToList();
+        return context.Courses.AsNoTracking().ProjectToType<CourseResponse>().ToList();
     }
 
     [HttpGet("{id:int}")]
     public CourseResponse GetCourseFromId([FromRoute] int id, [FromServices] MyIFContext context)
     {
-        var course = context.Courses.SingleOrDefault(course => course.Id == id);
+        var course = context.Courses.AsNoTracking().SingleOrDefault(course => course.Id == id);
         if (course is null)
         {
             Response.StatusCode = 404;
@@ -47,5 +48,23 @@ public class CourseController : ControllerBase
         var response = course.Adapt<CourseResponse>();
 
         return response;
+    }
+
+    [HttpPut("{id:int}")]
+    public CourseResponse CourseUpdate([FromRoute] int id, [FromBody] CourseCreateUpdate updatedCourse, [FromServices] MyIFContext context)
+    {
+        var course = context.Courses.SingleOrDefault(course => course.Id == id);
+
+        if (course is null)
+            throw new Exception("Course not found");
+
+        updatedCourse.Adapt(course);
+        course.UpdateDateTime = DateTime.Now;
+
+        context.SaveChanges();
+
+        var courseResponse = course.Adapt<CourseResponse>();
+
+        return courseResponse;
     }
 }
