@@ -1,3 +1,4 @@
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using MyIF.DataModels;
 using MyIF.Dtos.Courses;
@@ -10,8 +11,9 @@ namespace MyIF.Controllers;
 public class CourseController : ControllerBase
 {
     [HttpPost]
-    public Course PostCourse([FromBody] Course course, [FromServices] MyIFContext context)
+    public Course PostCourse([FromBody] CourseCreateUpdate courseDto, [FromServices] MyIFContext context)
     {
+        var course = courseDto.Adapt<Course>();
         var datetimeNow = DateTime.Now;
         course.CreationDateTime = datetimeNow;
         course.UpdateDateTime = datetimeNow;
@@ -29,9 +31,9 @@ public class CourseController : ControllerBase
     }
 
     [HttpGet]
-    public List<Course> GetCourses([FromServices] MyIFContext context)
+    public List<CourseResponse> GetCourses([FromServices] MyIFContext context)
     {
-        return context.Courses.ToList();
+        return context.Courses.ProjectToType<CourseResponse>().ToList();
     }
 
     [HttpGet("{id:int}")]
@@ -42,21 +44,8 @@ public class CourseController : ControllerBase
         {
             Response.StatusCode = 404;
         }
-        var response = new CourseResponse();
-        response.Id = course.Id;
-        response.Description = course.Description;
-        response.Name = course.Name;
-        response.IsActive = course.IsActive;
-        response.Workload = course.Workload;
-        response.UpdateDateTime = course.UpdateDateTime;
+        var response = course.Adapt<CourseResponse>();
 
         return response;
     }
-
-    // [HttpPatch("{id:int}")]
-    // public Course UpdateCourseStatus([FromRoute] int id, [FromServices] MyIFContext context)
-    // {
-    //     context.Courses.Update()
-    // }
-
 }
