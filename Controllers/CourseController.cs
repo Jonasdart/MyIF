@@ -12,7 +12,7 @@ namespace MyIF.Controllers;
 public class CourseController : ControllerBase
 {
     [HttpPost]
-    public Course PostCourse([FromBody] CourseCreateUpdate courseDto, [FromServices] MyIFContext context)
+    public CourseResponse PostCourse([FromBody] CourseCreateUpdate courseDto, [FromServices] MyIFContext context)
     {
         var course = courseDto.Adapt<Course>();
         var datetimeNow = DateTime.Now;
@@ -28,7 +28,10 @@ public class CourseController : ControllerBase
         {
             Response.StatusCode = 500;
         }
-        return course;
+
+        var courseResponse = course.Adapt<CourseResponse>();
+
+        return courseResponse;
     }
 
     [HttpGet]

@@ -8,17 +8,15 @@ namespace MyIF.Dtos.Courses;
 public class CourseCreateUpdate
 {
     [Required]
-    [Column(TypeName = "varchar(255)")]
+    [StringLength(100, MinimumLength = 3)]
     public string Name { get; set; }
 
     [Required]
-    [Column(TypeName = "text")]
     public string Description { get; set; }
 
     [Required]
     public int Workload { get; set; }
 
     [Required]
-    [Column(TypeName = "decimal(12,2)")]
     public decimal Price { get; set; }
 }
